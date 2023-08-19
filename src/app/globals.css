@@ -2,26 +2,114 @@
 @tailwind components;
 @tailwind utilities;
 
-:root {
-  --foreground-rgb: 0, 0, 0;
-  --background-start-rgb: 214, 219, 220;
-  --background-end-rgb: 255, 255, 255;
+@layer base {
+  body {
+    font-size: 1rem;
+    box-sizing: border-box;
+    position: relative;
+    overflow-x: hidden;
+    background: white;
+    /* font-family: 'Inter', sans-serif; */
+  }
+  .display{
+    @apply text-3xl font-normal font-yellowTail md:text-4xl text-secondary;
+  }
+  h1 {
+    @apply text-3xl font-extrabold sm:text-4xl md:text-[40px] xl:text-7xl font-roboto;
+  
+  }
+  h2 {
+    @apply text-3xl font-extrabold md:text-5xl font-roboto;
+  }
+  h3 {
+    @apply text-2xl font-semibold md:text-[40px] leading-10 font-roboto;
+    
+  }
+  h4 {
+    @apply text-xl  font-semibold lg:text-3xl font-roboto;
+    }
+  h5 {
+    @apply text-2xl font-semibold sm:text-3xl font-roboto;
+
+  }
+  h6 {
+    @apply font-semibold text-xl font-roboto;
+
+  }
+  .blog-li > li{
+    @apply list-disc list-inside
+  }
+  p {
+    @apply text-sm font-normal font-openSans leading-7 md:text-[18px];
+    
+  }
+  .p_small {
+    @apply text-xs font-normal leading-6 md:text-sm;
+  }
+  /* li {
+    @apply list-disc font-montserrat text-sm font-medium;
+  } */
+  label {
+    @apply text-[14px] font-normal leading-6 md:text-xl;
+  }
+  .flex1{
+    @apply flex justify-between items-center 
+  }
+  a {
+  }
+  /* button {
+    @apply 
+  } */
+ 
+  .bg-style {
+    @apply bg-cover bg-center bg-no-repeat;
+  }
+  .sb {
+    @apply border border-red-500;
+  }
+  th,td{
+    @apply border-r
+  }
+
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --foreground-rgb: 255, 255, 255;
-    --background-start-rgb: 0, 0, 0;
-    --background-end-rgb: 0, 0, 0;
+.bg-image-wrapper {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+}
+.drop-shadow{
+  filter: drop-shadow(0px 29px 44px rgba(150, 150, 150, 0.25));
+}
+.bg-multiple-images {
+  background-image: url('/assests/images/home/heroShadow.png'), url('/assests/images/home/hero.png');
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-size: cover;
+}
+.swiper-pagination-bullets{
+  color: red;
+}
+
+.container {
+  margin: 0 auto;
+  width: calc(100% - 20px);
+  max-width: 1440px;
+}
+
+@media (min-width: 640px) {
+  .container {
+    width: calc(100% - 60px);
   }
 }
 
-body {
-  color: rgb(var(--foreground-rgb));
-  background: linear-gradient(
-      to bottom,
-      transparent,
-      rgb(var(--background-end-rgb))
-    )
-    rgb(var(--background-start-rgb));
+@media (min-width: 960px) {
+  .container {
+    width: calc(100% - 80px);
+  }
+}
+.swiper-pagination-bullet-active{
+  background: #7EB693 !important;
 }

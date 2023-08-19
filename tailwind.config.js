@@ -12,6 +12,21 @@ module.exports = {
         'gradient-conic':
           'conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))',
       },
+      colors: {
+        primary: '#274C5B',
+        secondary: '#7EB693',
+        'theme-purple': '#592EA9',
+        'theme-white': '#F9F8F8',
+        'theme-green-light': '#EFF6F1',
+        'theme-yellow': '#EFD372',
+        'theme-dark': '#525C60',
+        'theme-gray': '#D4D4D4'
+      },
+      fontFamily: {
+        roboto:["var(--roboto)"],
+        yellowTail:['var(--yellowTail)'],
+        openSans:['var(--openSans)']
+      }
     },
   },
   plugins: [],
