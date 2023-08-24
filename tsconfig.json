@@ -24,7 +24,10 @@
     ],
 
     "paths": {
-      "@/*":["./src/*"]
+      "@/*":["./src/*"],
+      "@/website*":["./src/app/(website)/*"],
+      "@/admin*":["./src/app/(admin)/*"],
+      "@/redux*":["./src/app/reduxt_store/*"]
     }
   },
   "include": [

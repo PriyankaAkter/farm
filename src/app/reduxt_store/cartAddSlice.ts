@@ -2,7 +2,7 @@
 // console.log({ localItems });
 
 import { createSlice } from "@reduxjs/toolkit";
-import { products } from "../components/views/home/data";
+import { products } from "../(website)/components/views/home/data";
 const slice = createSlice({
   name: "cart",
   initialState: {

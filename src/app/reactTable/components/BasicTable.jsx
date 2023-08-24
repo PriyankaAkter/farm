@@ -1,64 +1,83 @@
 "use client";
 import {
   useReactTable,
+
   flexRender,
   getCoreRowModel,
   getPaginationRowModel,
   getSortedRowModel,
   getFilteredRowModel,
 } from "@tanstack/react-table";
-import { data } from "@/app/components/views/home/data";
+import { products } from "@/website/components/views/home/data";
 import { useMemo } from "react";
 import { useState } from "react";
+import { IoIosArrowForward, IoIosArrowBack } from "react-icons/io";
 
 // {
-//     id: 1,
-//     first_name: "Priyanka",
-//     last_name: "Akter",
-//     email:"priyanka@gmail.com",
-//     gender:"Female"
-//   },
-const BasicTable = () => {
-  const data1 = useMemo(() => data, []);
-  const columns = [
-    {
-      header: "ID",
-      accessorKey: "id",
-    },
-    // {
-    //     header: "Name",
-    //     accessorFn: row=> `${row.first_name} ${row.last_name}`
-    // },
-    {
-      header: "Fast Name",
-      accessorKey: "first_name",
-    },
-    {
-      header: "Last Name",
-      accessorKey: "last_name",
-    },
-    // {
-    //   header:"Name",
-    //   columns: [
-    //     {
-    //         header: "Fast Name",
-    //         accessorKey: "first_name",
-    //       },
-    //       {
-    //         header: "Last Name",
-    //         accessorKey: "last_name",
-    //       },
-    //   ]
-    // },
-    {
-      header: "Email",
-      accessorKey: "email",
-    },
-    {
-      header: "Gender",
-      accessorKey: "gender",
-    },
-  ];
+//   id: 1,
+//   image: "/assests/images/home/brocoli.png",
+//   name: "Calabrese Broccoli",
+//   slug:"calabrese_broccoli",
+//   alt: "vegetable",
+//   price: 20.00,
+//   discount: 13.00,
+//   star: 5,
+//   category: {
+//     name:"Vegetable",
+//     slug:"vegetable"
+// },
+// description: "Simply dummy text of the printing and typesetting industry. Lorem had ceased to been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley."
+// },
+const BasicTable = ({data1,columns}) => {
+  // const data1 = useMemo(() => products, []);
+  // const columns = [
+  //   {
+  //     header: "ID",
+  //     accessorKey: "id",
+  //   },
+  //   // {
+  //   //     header: "Name",
+  //   //     accessorFn: row=> `${row.first_name} ${row.last_name}`
+  //   // },
+  //   {
+  //     header: "Name",
+  //     accessorKey: "name",
+  //   },
+
+  //   // {
+  //   //   header:"Name",
+  //   //   columns: [
+  //   //     {
+  //   //         header: "Fast Name",
+  //   //         accessorKey: "first_name",
+  //   //       },
+  //   //       {
+  //   //         header: "Last Name",
+  //   //         accessorKey: "last_name",
+  //   //       },
+  //   //   ]
+  //   // },
+  //   {
+  //     header: "Price",
+  //     accessorKey: "price",
+  //   },
+  //   {
+  //     header: "Discount",
+  //     accessorKey: "discount",
+  //   },
+  //   {
+  //     header: "Category",
+  //     accessorKey: "category.name",
+  //   },
+  //   {
+  //     header: "Date",
+  //     accessorKey: "date",
+  //   },
+  //   {
+  //     header: "Action",
+  //     accessorKey: "action",
+  //   },
+  // ];
 
   const [sorting, setSorting] = useState([]);
   const [filtering, setFiltering] = useState("");
@@ -80,26 +99,28 @@ const BasicTable = () => {
 
   console.log(table);
   return (
-    <div className="container grid justify-items-center">
-      <h1>React Table</h1>
-      <div>
+    <div className="w-full">
+      {/* <div>
         <input className="border border-secondary"
           type="text"
           value={filtering}
           onChange={(e) => setFiltering(e.target.value)}
         />
-      </div>
+      </div> */}
 
-      <table>
-        <thead>
+      <table className="w-full">
+        <thead className="border-none">
           {table.getHeaderGroups().map((headerGroup) => (
-            <tr key={headerGroup.id}>
+            <tr
+              key={headerGroup.id}
+              className="text-xl text-center text-primary"
+            >
               {headerGroup.headers.map((header) => {
                 return (
                   <th
                     key={header.id}
                     colSpan={header.colSpan}
-                    className="px-6 py-4"
+                    className="py-4 border-b-2"
                   >
                     {header.isPlaceholder ? null : (
                       <div
@@ -130,12 +151,16 @@ const BasicTable = () => {
           {table
             .getRowModel()
             .rows.slice(0, 10)
-            .map((row) => {
+            .map((row, index) => {
+              const rowClass = index % 2 === 0 ? "bg-white" : "bg-gray-100";
               return (
-                <tr key={row.id}>
+                <tr
+                  key={row.id}
+                  className={`text-xl text-center text-primary ${rowClass}`}
+                >
                   {row.getVisibleCells().map((cell) => {
                     return (
-                      <td key={cell.id} className="px-6 py-4">
+                      <td key={cell.id} className=" py-4">
                         {flexRender(
                           cell.column.columnDef.cell,
                           cell.getContext()
@@ -148,40 +173,38 @@ const BasicTable = () => {
             })}
         </tbody>
       </table>
-      <div className="grid gap-2 grid-cols-4 justify-items-center mt-2">
-        <button
-          onClick={() => table.setPageIndex(0)}
-          className="border border-secondary px-4 py-3"
-        >
-          First Page
-        </button>
-        <button
-          disabled={!table.getCanPreviousPage()}
-          onClick={() => table.previousPage()}
-          className="border border-secondary px-4 py-3"
-        >
-          Previous Page
-        </button>
-        <button
-          disabled={!table.getCanNextPage()}
-          onClick={() => table.nextPage()}
-          className="border border-secondary px-4 py-3"
-        >
-          Next Page
-        </button>
-        <button
-          onClick={() => table.setPageIndex(table.getPageCount() - 1)}
-          className="px-4 py-3 border border-secondary"
-        >
-          Last Page
-        </button>
+      <div className="flex justify-between mt-20 items-center">
+        <p>Show 10 in 30 items</p>
+        <div className="mt-2 flex gap-2">
+          <button
+            disabled={!table.getCanPreviousPage()}
+            onClick={() => table.previousPage()}
+            className="bg-theme-gray px-4 py-3 hover:text-white hover:bg-secondary"
+          >
+            <IoIosArrowBack />
+          </button>
+          <button
+            onClick={() => table.setPageIndex(0)}
+            className="bg-theme-gray px-4 py-3 hover:text-white hover:bg-secondary"
+          >
+            1
+          </button>
+          <button
+            onClick={() => table.setPageIndex(1)}
+            className="bg-theme-gray px-4 py-3 hover:text-white hover:bg-secondary"
+          >
+            2
+          </button>
+
+          <button
+            disabled={!table.getCanNextPage()}
+            onClick={() => table.nextPage()}
+            className="bg-theme-gray px-4 py-3 hover:text-white hover:bg-secondary"
+          >
+            <IoIosArrowForward />
+          </button>
+        </div>
       </div>
-      {/* <div className="grid gap-2 grid-cols-3 mt-4">
-        <button onClick={()=> localStorage.setItem("name","Priyanka")} className="border border-secondary px-4 py-3">Set Item</button>
-        <button onClick={()=>
-          console.log(localStorage.getItem("name"))} className="border border-secondary px-4 py-3">Get Item</button>
-        <button onClick={()=>localStorage.removeItem("name")} className="border border-secondary px-4 py-3">Remove Item</button>
-      </div> */}
     </div>
   );
 };

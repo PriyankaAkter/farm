@@ -1,5 +1,5 @@
 'use client'
-import ButtonOne from "@/app/components/shared/ButtonOne";
+import ButtonOne from "@/website/components/shared/ButtonOne";
 import { useForm } from "react-hook-form";
 
 const Form = () => {
