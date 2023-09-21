@@ -16,7 +16,7 @@ const CheckOutDetails = () => {
   const dispatch = useDispatch()
   const cart = useSelector((state)=>state.cart.products)
   console.log(cart);
-  const totalPrice=cart.reduce((sum,item)=>(sum+(item.discount*item.quantity)),0)
+  const totalPrice=cart.reduce((sum,item)=>(sum+(item.dis_price*item.quantity)),0)
   // const dispatch = useDispatch();
   // const [cart, setcart] = useState([]);
   // console.log({cart});
@@ -57,7 +57,7 @@ const CheckOutDetails = () => {
                 return  <tr key={index} className="text-center  border">
                 <td className="flex items-center gap-2 sm:gap-6 py-4 pl-2 ">
                   <div className="w-20 h-16 sm:h-[80px] relative bg-[#F0E4E6]">
-                    <Image src={e?.images[0]} alt="Images" fill />
+                    <Image src={e?.img} alt="Images" fill />
                   </div>
 
                   <span className="text-base sm:text-[22px] font-normal text-primary">
@@ -65,7 +65,7 @@ const CheckOutDetails = () => {
                   </span>
                 </td>
                 <td className="text-base sm:text-[22px] font-normal text-primary px-8">
-                  {e.discount}
+                  {e.dis_price}
                 </td>
                 <td className="px-8">
                   <div className="text-base sm:text-[22px] font-normal text-primary w-28 sm:w-[171px] mx-auto p-1 bg-[#EFF6F1] rounded-full flex justify-between items-center">
@@ -87,7 +87,7 @@ const CheckOutDetails = () => {
                   </div>
                 </td>
                 <td className="text-base sm:text-[22px] font-medium text-primary px-8">
-                  {e.discount * e.quantity}
+                  {e.dis_price * e.quantity}
                 </td>
                 <td className="px-8">
                   <button

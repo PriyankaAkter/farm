@@ -1,0 +1,67 @@
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+
+
+
+model Coupons {
+  id        Int     @id @default(autoincrement())
+  code     String
+  percent   String
+  currency String
+  createdAt    DateTime @default(now())
+  updatedAt  DateTime  @updatedAt
+  expireDate DateTime @default(now())
+  status  Status @default(Active)
+  
+
+}
+model Customers {
+  id        Int     @id @default(autoincrement())
+  name     String
+  district  String
+  city  String
+  code  String
+  area  String
+  phone   String
+  email String @unique 
+  altPhone   String?
+  optional  String
+  createdAt    DateTime @default(now())
+  updatedAt  DateTime  @updatedAt
+}
+
+model Category {
+  id        Int     @id @default(autoincrement())
+  name     String
+  slug   String
+  description String
+  
+  createdAt    DateTime @default(now())
+  updatedAt  DateTime  @updatedAt
+}
+
+model Product {
+  id        Int     @id @default(autoincrement())
+  name     String
+  slug   String
+  category  String?
+  img   String
+  reg_price   String
+  dis_price   String
+  quantity   String
+  createdAt    DateTime @default(now())
+  updatedAt  DateTime  @updatedAt
+}
+
+enum Status {
+  Active
+  Expired
+}

@@ -1,9 +1,30 @@
+'use client'
 import React from "react";
 import { products } from "./data";
 import ButtonOne from "../../shared/ButtonOne";
 import Card from "../../layout/card/Card";
+import { useQuery } from "@tanstack/react-query";
+import axios from "axios";
+
+
+const fetchCategory = () => {
+  return axios.get(`/api/product`);
+};
 const HomeProductAll = () => {
-    const sliceProducts = products.filter(item=>item.category.slug=="vegetable");
+
+  const { isLoading, data, isError, error, refetch } = useQuery({
+    queryKey: ["product-data"],
+    queryFn: fetchCategory,
+  });
+
+  if (isLoading) {
+    return <h2>Loading...</h2>;
+  }
+  if (isError) {
+    return <h2>{error.message}</h2>;
+  }
+    const sliceProducts = data.data?.filter(item=>item.slug=="Vegetable");
+    console.log({sliceProducts});
   return (
     <div className="bg-primary w-screen py-20 lg:py-40">
       <div className="container">

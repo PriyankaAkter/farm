@@ -8,77 +8,10 @@ import {
   getSortedRowModel,
   getFilteredRowModel,
 } from "@tanstack/react-table";
-import { products } from "@/website/components/views/home/data";
-import { useMemo } from "react";
 import { useState } from "react";
 import { IoIosArrowForward, IoIosArrowBack } from "react-icons/io";
-
-// {
-//   id: 1,
-//   image: "/assests/images/home/brocoli.png",
-//   name: "Calabrese Broccoli",
-//   slug:"calabrese_broccoli",
-//   alt: "vegetable",
-//   price: 20.00,
-//   discount: 13.00,
-//   star: 5,
-//   category: {
-//     name:"Vegetable",
-//     slug:"vegetable"
-// },
-// description: "Simply dummy text of the printing and typesetting industry. Lorem had ceased to been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley."
-// },
 const BasicTable = ({data1,columns}) => {
-  // const data1 = useMemo(() => products, []);
-  // const columns = [
-  //   {
-  //     header: "ID",
-  //     accessorKey: "id",
-  //   },
-  //   // {
-  //   //     header: "Name",
-  //   //     accessorFn: row=> `${row.first_name} ${row.last_name}`
-  //   // },
-  //   {
-  //     header: "Name",
-  //     accessorKey: "name",
-  //   },
-
-  //   // {
-  //   //   header:"Name",
-  //   //   columns: [
-  //   //     {
-  //   //         header: "Fast Name",
-  //   //         accessorKey: "first_name",
-  //   //       },
-  //   //       {
-  //   //         header: "Last Name",
-  //   //         accessorKey: "last_name",
-  //   //       },
-  //   //   ]
-  //   // },
-  //   {
-  //     header: "Price",
-  //     accessorKey: "price",
-  //   },
-  //   {
-  //     header: "Discount",
-  //     accessorKey: "discount",
-  //   },
-  //   {
-  //     header: "Category",
-  //     accessorKey: "category.name",
-  //   },
-  //   {
-  //     header: "Date",
-  //     accessorKey: "date",
-  //   },
-  //   {
-  //     header: "Action",
-  //     accessorKey: "action",
-  //   },
-  // ];
-
+ 
   const [sorting, setSorting] = useState([]);
   const [filtering, setFiltering] = useState("");
 
@@ -97,7 +30,7 @@ const BasicTable = ({data1,columns}) => {
     onGlobalFilterChange: setFiltering,
   });
 
-  console.log(table);
+
   return (
     <div className="w-full">
       {/* <div>
@@ -183,7 +116,7 @@ const BasicTable = ({data1,columns}) => {
           >
             <IoIosArrowBack />
           </button>
-          <button
+          {/* <button
             onClick={() => table.setPageIndex(0)}
             className="bg-theme-gray px-4 py-3 hover:text-white hover:bg-secondary"
           >
@@ -194,7 +127,7 @@ const BasicTable = ({data1,columns}) => {
             className="bg-theme-gray px-4 py-3 hover:text-white hover:bg-secondary"
           >
             2
-          </button>
+          </button> */}
 
           <button
             disabled={!table.getCanNextPage()}

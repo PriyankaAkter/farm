@@ -6,7 +6,7 @@ const Filter = () => {
     
 
       <div className="flex-1">
-        <form class="grid grid-cols-3 gap-4">
+        <form className="grid grid-cols-3 gap-4">
           <div className="border px-4 py-2 ">
             <input type="text" placeholder="Search..." className="text-xl" />
           </div>
@@ -14,7 +14,7 @@ const Filter = () => {
             <select
               id="option"
               name="option"
-              class="block w-full bg-none border py-4 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+              className="block w-full bg-none border py-4 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
             >
               <option value="option1">Status</option>
               <option value="option2">Active</option>
@@ -34,12 +34,12 @@ const Filter = () => {
 
 export default Filter;
  {/* <div className="flex-1">
-          <form class="grid grid-cols-4 gap-4">
+          <form className="grid grid-cols-4 gap-4">
             <div>
               <select
                 id="option"
                 name="option"
-                class="block w-full  bg-none border py-4 pl-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+                className="block w-full  bg-none border py-4 pl-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
               >
                 <option value="option1">Select Category</option>
                 <option value="option2">Clothing & Apparel</option>
@@ -50,7 +50,7 @@ export default Filter;
               <select
                 id="option"
                 name="option"
-                class="block w-full bg-none border py-4 pl-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+                className="block w-full bg-none border py-4 pl-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
               >
                 <option value="option1">Product Type</option>
                 <option value="option2">Simple Product</option>
@@ -61,7 +61,7 @@ export default Filter;
               <select
                 id="option"
                 name="option"
-                class="block w-full bg-none border py-4 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+                className="block w-full bg-none border py-4 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
               >
                 <option value="option1">Status</option>
                 <option value="option2">Active</option>

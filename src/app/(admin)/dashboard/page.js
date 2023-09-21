@@ -1,3 +1,4 @@
+'use client'
 import { SideBar } from "@/admin/dashboard/components/layout/slideBar/SideBar";
 import Header from "./components/layout/Header";
 import { SlCalender } from "react-icons/sl";
@@ -11,40 +12,78 @@ import Image from "next/image";
 import { useMemo } from "react";
 import { orders } from "@/app/(website)/components/views/home/data";
 import BasicTable from "@/app/reactTable/components/BasicTable";
+import axios from "axios";
+import { useQuery } from "@tanstack/react-query";
+import { DropDownMenuDemo } from "./categories/components/DropDown";
+
+
+const fetchCategory = ()=> {
+  return  axios.get("/api/product")
+}
 
 export default function Home() {
-  const data1 = useMemo(() => orders, []);
+  // const data1 = useMemo(() => orders, []);
+  const {isLoading,data,isError,error,refetch} = useQuery({
+    queryKey:['product-data'], 
+    queryFn: fetchCategory
+  })
+  if(isLoading)
+  {
+    return <h2>Loading...</h2>
+  }
+  if(isError){
+    return <h2>{error.message}</h2>
+  }
   const columns = [
     {
-      header: "ID",
-      accessorKey: "id",
+      header: "Product Image",
+      accessorKey: "img",
+      
+      cell: (info ) => {
+        const image = info.getValue()
+        return (
+          <div className="flex justify-center items-center">
+            <Image alt='product' src={image} height={60} width={60} />
+          </div>
+        );
+   
+        
+      }
+      
     },
-
+   
     {
-      header: "Date",
-      accessorKey: "date",
-    },
-
-    {
-      header: "Product",
-      accessorKey: "product",
+      header: "Name",
+      accessorKey: "name",
     },
     {
-      header: "Payment",
-      accessorKey: "payment",
+      header: "Product slug",
+      accessorKey: "slug",
+    },
+    {
+      header: "Category",
+      accessorKey: "category",
+    },
+    {
+      header: "Price",
+      accessorKey: "reg_price",
+    },
+    {
+      header: "Discount",
+      accessorKey: "dis_price",
     },
     
-    {
-      header: "Fullfillment",
-      accessorKey: "fullfillment",
-    },
-    {
-      header: "Total",
-      accessorKey: "total",
-    },
+       {
+        header: "Date",
+        accessorKey: "createdAt",
+      },
     {
       header: "Action",
       accessorKey: "action",
+      // cell: () => {
+      //   return <DropDownMenuDemo  />;
+        
+      // }
     },
   ];
   return (
@@ -52,12 +91,12 @@ export default function Home() {
       <div>
         <Header title="Dashboard" subTitle="Everything here" />
       </div>
-      <div className="flex gap-4">
-        <div className="w-5/6 sb">
+      <div className="flex gap-10 mt-20">
+        <div className="w-5/6 ">
           <div></div>
           <div>
             <h4>Recent Orders</h4>
-          <BasicTable data1={data1} columns={columns} />
+          <BasicTable data1={data.data} columns={columns} />
           </div>
         </div>
         <div className="w-[320px] flex-shrink-0 grid gap-8">

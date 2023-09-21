@@ -45,6 +45,8 @@ const slice = createSlice({
       );
       if (findId !== -1) {
         const productQuantity = state.products[findId];
+        // productQuantity["quantity"] = productQuantity["quantity"] + 1;
+        // state.products[findId] = productQuantity;
         productQuantity["quantity"] = productQuantity["quantity"] + 1;
         state.products[findId] = productQuantity;
         localStorage.setItem("cart", JSON.stringify(state.products));

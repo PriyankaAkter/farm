@@ -539,7 +539,26 @@ export const data = [
   },
 ]
 
-
+export const categories = [
+  {
+    id: 1,
+    name: "Fresh",
+    slug: "fresh",
+    description: "In summary, the use of async and await ensures "
+  },
+  {
+    id: 2,
+    name: "Vegetable",
+    slug: "vegetable",
+    description: "In summary, the use of async and await ensures "
+  },
+  {
+    id: 3,
+    name: "Nuts",
+    slug: "nuts",
+    description: "In summary, the use of async and await ensures "
+  }
+]
 export const customers = [
   {
     id:1,

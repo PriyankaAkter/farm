@@ -1,81 +1,124 @@
-
+'use client'
 import Header from "@/admin/dashboard/components/layout/Header";
 import Filter from "@/admin/dashboard/components/layout/Filter";
 import BasicTable from "@/app/reactTable/components/BasicTable";
 import { AiOutlineFilter, AiOutlinePlus } from "react-icons/ai";
 import { BsSearch } from "react-icons/bs";
-import { useMemo } from "react";
-import { products } from "@/app/(website)/components/views/home/data";
+import Link from "next/link";
+import { DropDownMenuDemo } from "../products/components/DropDown";
+import { useQuery } from "@tanstack/react-query";
+import axios from "axios";
+import Image from "next/image";
+
+
+const fetchCategory = ()=> {
+  return  axios.get(`/api/product`)
+}
+
+// const fetchCategory = async (id)=> {
+//   const res = await axios.get(`/api/product/edit/${id}`)
+//   console.log({res});
+//   return  res.data
+// }
 
 const page = () => {
-  const data1 = useMemo(() => products, []);
+  // const data1 = useMemo(() => products, []);
+   const {isLoading,data,isError,error,refetch} = useQuery({
+    queryKey:['product-data'], 
+    queryFn: fetchCategory
+  })
+  // const { id } = params;
+  // const {isLoading,data,isError,error} = useQuery({
+  //   queryKey:['product-data', id], 
+  //   queryFn: () => fetchCategory(id)
+  // })
+  if(isLoading)
+  {
+    return <h2>Loading...</h2>
+  }
+  if(isError){
+    return <h2>{error.message}</h2>
+  }
+
+  // console.log({data})
   const columns = [
-    {
-      header: "ID",
-      accessorKey: "id",
-    },
     // {
-    //     header: "Name",
-    //     accessorFn: row=> `${row.first_name} ${row.last_name}`
+    //   header: "ID",
+    //   accessorKey: "id",
     // },
+    {
+      header: "Product Image",
+      accessorKey: "img",
+      
+      cell: (info ) => {
+        const image = info.getValue()
+        return (
+          <div className="flex justify-center items-center">
+            <Image alt='product' src={image} height={60} width={60} />
+          </div>
+        );
+   
+        
+      }
+      
+    },
+   
     {
       header: "Name",
       accessorKey: "name",
     },
-
-    // {
-    //   header:"Name",
-    //   columns: [
-    //     {
-    //         header: "Fast Name",
-    //         accessorKey: "first_name",
-    //       },
-    //       {
-    //         header: "Last Name",
-    //         accessorKey: "last_name",
-    //       },
-    //   ]
-    // },
     {
-      header: "Price",
-      accessorKey: "price",
-    },
-    {
-      header: "Discount",
-      accessorKey: "discount",
+      header: "Product slug",
+      accessorKey: "slug",
     },
     {
       header: "Category",
-      accessorKey: "category.name",
+      accessorKey: "category",
     },
     {
-      header: "Date",
-      accessorKey: "date",
+      header: "Price",
+      accessorKey: "reg_price",
     },
+    {
+      header: "Discount",
+      accessorKey: "dis_price",
+    },
+    
+       {
+        header: "Date",
+        accessorKey: "createdAt",
+      },
     {
       header: "Action",
       accessorKey: "action",
+      cell: ({row}) => {
+        // console.log({row});
+        return <DropDownMenuDemo row={row.original} type="products"  />;
+        
+      }
     },
   ];
 
   return (
     <div className="container1 py-10">
       <div>
+      {/* <DialogDemo /> */}
         <Header title="Products" subTitle="Product Listings" />
       </div>
-      <div className="flex justify-end">
-        <button className="bg-secondary py-4 px-10 text-white text-base font-semibold flex items-center gap-1">
-          <AiOutlinePlus className="text-white w-6 h-6" /> NEW PRODUCT
+      <Link href="/dashboard/products/addNewProducts" className="flex justify-end">
+        <button className="bg-secondary py-4 px-10  flex items-center gap-1">
+          <AiOutlinePlus className="text-white w-6 h-6" /><span className="text-white text-base font-semibold "> NEW PRODUCT</span> 
         </button>
-      </div>
+        
+      </Link>
       <div className="flex mt-8 my-24">
         <div className="flex-1">
-          <form class="grid grid-cols-4 gap-4">
+          <form className="grid grid-cols-4 gap-4">
             <div>
               <select
                 id="option"
                 name="option"
-                class="block w-full  bg-none border py-4 pl-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+                className="block w-full  bg-none border py-4 pl-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
               >
                 <option value="option1">Select Category</option>
                 <option value="option2">Clothing & Apparel</option>
@@ -86,7 +129,7 @@ const page = () => {
               <select
                 id="option"
                 name="option"
-                class="block w-full bg-none border py-4 pl-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+                className="block w-full bg-none border py-4 pl-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
               >
                 <option value="option1">Product Type</option>
                 <option value="option2">Simple Product</option>
@@ -97,7 +140,7 @@ const page = () => {
               <select
                 id="option"
                 name="option"
-                class="block w-full bg-none border py-4 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+                className="block w-full bg-none border py-4 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
               >
                 <option value="option1">Status</option>
                 <option value="option2">Active</option>
@@ -115,7 +158,7 @@ const page = () => {
         </div>
       </div>
       <div>
-        <BasicTable data1={data1} columns={columns} />
+        <BasicTable data1={data.data} columns={columns} />
       </div>
     </div>
   );
